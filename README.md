@@ -29,6 +29,8 @@ Assert that the dash service image name is the same that was set in the **build-
 
 In **nginx/conf/proxy.conf** edit the two (one in each server block) occurencies of **set $host_addr XXX;** so that **$host_addr** is set to the curren host IP or hostname. The proxy parameters in the https server block are yet experimental.
 
+Also, add certificate files (certificate.pem, key.pem) to the **certbot/certs** folder. See the readme there, on how to generate self-signed certificates, if letsencrypt/certbot is not an option.
+
 ## Editing the python app
 
 The python application is found in the **./app/app.py** and should be edited on the host. Note the **debug** mode set in app.py and also the *FLASK_ENV=development* that can be changed in **docker-compose.yml**.
