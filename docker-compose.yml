@@ -1,0 +1,28 @@
+version: '3.3'
+
+services:
+    dash:
+        image: "equa-dash:latest"
+        container_name: "dash"
+        environment:
+            - FLASK_ENV=development
+        ports:
+            - 8080:8080
+        volumes:
+            - ./app:/app:Z
+            - /tmp/data:/data:Z
+    proxy:
+        image: nginx:latest
+        ports:
+            - 80:80
+            - 443:443
+        restart: always
+        volumes:
+            - ./nginx/conf/:/etc/nginx/conf.d/:Z
+            - ./certbot/www/:/var/www/certbot/:Z
+            - ./certbot/certs/:/etc/nginx/ssl/:Z
+#   certbot:
+#       image: certbot/certbot:latest
+#       volumes:
+#           - ./certbot/www/:/var/www/certbot/:rw
+#           - ./certbot/conf/:/etc/letsencrypt/:rw
