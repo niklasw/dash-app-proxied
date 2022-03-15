@@ -19,10 +19,37 @@ is defined. To create the docker image, simply run the script on the host:
 
 ## Configure the docker containers
 
-The containers are (can be) started using **docker-compose** and are thus configured in the **docker-compose.yml** file. It defines the docker volumes (mount points/shares) and these need to be edited depending on host system. If the host sports SELinux, the volume definitions must end with **:Z** so that SELinux does not block permissions.
+The containers are (can be) started using **docker-compose** and are thus configured in the **docker-compose.yml** file. It defines the docker volumes (mount points/shares) and these need to be edited depending on host system. If the host sports SELinux, the volume definitions must end with **:Z** so that SELinux does not block permissions. On other systems instead append **:ro** or **:rw** as appropriate (read-only, read-write).
 
 In **docker-compose.yml** environment variables can be added to the respective containers.
 
+Assert that the dash service image name is the same that was set in the **build-docker-image.sh** script.
+
 ## Configure the nginx server for https
 
-In **nginx/conf/proxy.conf** edit the two(!!) occurencies of //set $host_addr XXX;// so that //$host_addr// is set to the curren host IP or hostname.
+In **nginx/conf/proxy.conf** edit the two (one in each server block) occurencies of **set $host_addr XXX;** so that **$host_addr** is set to the curren host IP or hostname. The proxy parameters in the https server block are yet experimental.
+
+## Editing the python app
+
+The python application is found in the **./app/app.py** and should be edited on the host. Note the **debug** mode set in app.py and also the *FLASK_ENV=development* that can be changed in **docker-compose.yml**.
+
+## Launching the application
+
+The following command starts and stops all containers defined in **docker-compose.yml**.
+
+        docker-compose up -d
+        docker-compose down
+
+View which containers are running and forcefully delete unwanted:
+
+        docker ps                   # list running conainers
+        docker ps -a                # also include stopped containers
+        docker rm <container name>  # remove containers
+
+Log in to a running container, e.g. the nginx server:
+
+        docker exec -it nginx nxinx-proxy bash
+
+## Access the running application
+
+In the web broser: **https://host_addr/**
