@@ -13,6 +13,7 @@ services:
             - /tmp/data:/data:rw
     proxy:
         image: nginx:latest
+        container_name: "nginx-proxy"
         ports:
             - 80:80
             - 443:443
