@@ -12,10 +12,24 @@ Start by cloning this repository on the host.
 
 ## Build the container image
 
+First, check if the image is already present:
+
+        docker image ls
+
+### If it is not already built
+
 The **build-docker-image.sh** is just a single line script. Here the image name
 is defined. To create the docker image, simply run the script on the host:
 
         ./build-docker-image.sh
+
+Then check that the image is registered by docker
+
+        docker image ls
+
+To remove an image
+
+        docker image rm <image-name|image-id>
 
 ## Configure the docker containers
 
