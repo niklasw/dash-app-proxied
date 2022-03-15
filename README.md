@@ -16,10 +16,16 @@ First, check if the image is already present:
 
         docker image ls
 
-### If it is not already built
+To remove an existing image do
 
-The **build-docker-image.sh** is just a single line script. Here the image name
-is defined. To create the docker image, simply run the script on the host:
+        docker image rm <image name|image id>
+
+### If it is not already built, or need an update
+
+The **requirements.txt** is the only configuration really. It probably needs revision and maybe remove the versions.
+
+The **build-docker-image.sh** is a one line script. Here the image name
+is defined by the --tag argument. To create the docker image, simply run the script on the host:
 
         ./build-docker-image.sh
 
@@ -64,7 +70,7 @@ View which containers are running and forcefully delete unwanted:
 
 Log in to a running container, e.g. the nginx server:
 
-        docker exec -it nginx nxinx-proxy bash
+        docker exec -it nxinx-proxy bash
 
 ## Access the running application
 
