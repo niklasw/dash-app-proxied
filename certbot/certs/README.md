@@ -2,12 +2,13 @@
 
 # Generate self-signed certs key.pem and certificate.pem
 
+        cd /to/this/folder
         openssl req -newkey rsa:2048 -nodes -keyout key.pem -x509 -days 365 -out certificate.pem
 
 # View the certificate.pem
 
         openssl x509 -text -noout -in certificate.pem
 
-# Combine the two into p12 cert, if required
+# Combine the two into p12 cert, if required (presently not)
 
         openssl pkcs12 -inkey key.pem -in certificate.pem -export -out certificate.p12
