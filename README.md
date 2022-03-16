@@ -19,9 +19,13 @@ First, check if the image is already present:
 To remove an existing image do
 
         docker image rm <image name|image id>
+ 
 If this fails, there are probaly one or more containers already running, that depend on the image. List all existing containers with
+
         docker ps -a
+
 And remove the containers (first stop them if they are running)
+
         docker container stop <container name|container id>
         docker container rm <container name|container id>
 
